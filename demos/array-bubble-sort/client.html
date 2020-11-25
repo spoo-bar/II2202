@@ -18,14 +18,23 @@
     <script type="text/javascript" src="./mpc.js"></script>
   </head>
   <body>
-    <h1>Connect</h1>
-    <label for="computation_id">Computation ID</label><input id="computation_id" value="d99304db" disabled></input><br/><br/>
-    <label for="count">Party Count<label> <input id="count" pattern="[0-9]*" value="3" disabled> &nbsp; <button id="connectButton" onclick="connect();">Connect</button>
-    <br/><br/>
-    <hr/>
-    <h1>Sort</h1>
-    <label for="number">Enter your value: </label> <br/><br/>
-    <textarea id="inputText" rows="5" cols="35">1</textarea> &nbsp; <button onclick="submit();" disabled="disabled" id="processButton">Start</button><br/>
-    <div id="output"></div>
+    <div id="session">
+      <h2>Join a session</h2>
+      <label for="sessions">Choose a session to join:</label>
+      <select name="sessions" id="sessions">
+      </select>
+      <button id="connectButton" onclick="connect();">Connect</button>
+      <br><br>
+      <h2>Create a session</h2>
+      <label for="session-description">Session Description </label><input id="session-description" value="New York"></input><br/><br/>
+      <label for="count">Party Count<label> <input id="count" pattern="[0-9]*" value="3">  
+        <button id="createSessionButton" onclick="createSession();">Create</button>
+    </div>
+    <div id="inputView">
+      <h1>Sort</h1>
+      <label for="number">Enter your value: </label> <br/><br/>
+      <textarea id="inputText" rows="5" cols="35">1</textarea> &nbsp; <button onclick="submit();" disabled="disabled" id="processButton">Start</button><br/>
+      <div id="output"></div>
+    </div>
   </body>
 </html>

@@ -15,7 +15,8 @@ var sessions = [];
 
 // API routes
 app.get('/session', function (req, res) {
-  res.send(sessions);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(sessions));
 });
 
 app.post('/session', function (req, res) {
