@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "bignumber.js": "^5.0.0",
+    "body-parser": "^1.19.0",
     "cross-env": "^5.0.5",
     "docdash": "^1.1.1",
     "increase-memory-limit": "^1.0.3",
@@ -61,7 +62,8 @@
     "numeric": "^1.2.6",
     "request": "^2.88.0",
     "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "socket.io-client": "^2.2.0",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "browserify": "^16.5.0",
