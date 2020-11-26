@@ -30,6 +30,7 @@ app.post('/session', function (req, res) {
 app.use('/', express.static(path.join(__dirname)));
 app.use('/lib', express.static(path.join(__dirname, 'lib')));
 app.use('/lib/ext', express.static(path.join(__dirname, 'lib', 'ext')));
+app.use('/src', express.static(path.join(__dirname, 'src')));
 
 // Seed data
 createSession('Stockholm', 5);
