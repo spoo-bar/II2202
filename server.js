@@ -2,7 +2,7 @@ var path = require('path');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var JIFFServer = require('../../lib/jiff-server');
+var JIFFServer = require('./lib/jiff-server');
 new JIFFServer(http, { logs:true });
 const { v4: uuidv4 } = require('uuid');
 var bodyParser = require('body-parser')
@@ -27,9 +27,9 @@ app.post('/session', function (req, res) {
 });
 
 // Serve static files.
-app.use('/demos', express.static(path.join(__dirname, '..', '..', 'demos')));
-app.use('/dist', express.static(path.join(__dirname, '..', '..', 'dist')));
-app.use('/lib/ext', express.static(path.join(__dirname, '..', '..', 'lib', 'ext')));
+app.use('/', express.static(path.join(__dirname)));
+app.use('/lib', express.static(path.join(__dirname, 'lib')));
+app.use('/lib/ext', express.static(path.join(__dirname, 'lib', 'ext')));
 
 // Seed data
 createSession('Stockholm', 5);

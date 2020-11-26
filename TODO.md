@@ -18,9 +18,9 @@ Display an overview page of sessions (Landing page) (1) (SPOON):
     - Has to be in local browser storage
 
 
-[] Clean out useless demo stuff (1) (Spoon)
+[x] Clean out useless demo stuff (1) (Spoon)
 
-[] Remove refences to the other project and import correctly (1) (Spoon)
+[x] Remove refences to the other project and import correctly (1) (Spoon)
 
 
 ## Statistics to display: [JASPER PLS]
