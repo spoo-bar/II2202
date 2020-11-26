@@ -23,7 +23,7 @@ function connect() {
     };
     options.onConnect = function () {
       $('#processButton').attr('disabled', false); $('#output').append('<p>All parties Connected!</p>');
-      //toggleSessionInput();
+      toggleSessionInput();
     };
 
     var hostname = window.location.hostname.trim();
@@ -74,8 +74,8 @@ function handleResult(result) {
 }
 
 function toggleSessionInput() {
-  $('#session').toggle();
-  $('#inputView').toggle();
+  $('#session').css('display', 'none');
+  $('#inputView').css('display', 'block');
 }
 
 function getRegisteredSessions() {

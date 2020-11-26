@@ -1,22 +1,26 @@
 ## Generics:
 Display an overview page of sessions (Landing page) (1) (SPOON):
-- Create session (1)
-    - Include description
-    - Include num of participants
-    - Location
-        - Detect location automatically (3); Needs soem thought
-- Overview of pending/unfinsihed sessions (1)
-- Overview of finished sessions (1)
-- Overview of my previous finished sessions (2)
+
+[X] Create session (1)
+
+    [x] Include description
+
+    [x] Include num of participants
+
+    [] Location
+        [] Detect location automatically (3); Needs soem thought
+
+[] Overview of pending/unfinsihed sessions (1)
+
+[] Overview of finished sessions (1)
+
+[] Overview of my previous finished sessions (2)
     - Has to be in local browser storage
 
 
-    Overview page 
-        * For stockholm, paris etc (location in description)
+[] Clean out useless demo stuff (1) (Spoon)
 
-Clean out useless demo stuff (1) (Spoon)
-
-Remove refences to the other project and import correctly (1) (Spoon)
+[] Remove refences to the other project and import correctly (1) (Spoon)
 
 
 ## Statistics to display: [JASPER PLS]

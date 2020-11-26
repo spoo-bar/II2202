@@ -30,9 +30,9 @@
       <label for="count">Party Count<label> <input id="count" pattern="[0-9]*" value="3">  
         <button id="createSessionButton" onclick="createSession();">Create</button>
     </div>
-    <div id="inputView">
-      <h1>Sort</h1>
-      <label for="number">Enter your value: </label> <br/><br/>
+    <div id="inputView" style="display: none;">
+      <h3>Input data: </h3>
+      <label for="number">Enter your weight: </label> <br/><br/>
       <textarea id="inputText" rows="5" cols="35">1</textarea> &nbsp; <button onclick="submit();" disabled="disabled" id="processButton">Start</button><br/>
       <div id="output"></div>
     </div>
