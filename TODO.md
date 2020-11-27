@@ -22,6 +22,7 @@ Display an overview page of sessions (Landing page) (1) (SPOON):
 
 [x] Remove refences to the other project and import correctly (1) (Spoon)
 
+[x] move our code to src
 
 ## Statistics to display: [JASPER PLS]
 - top 10%

@@ -29,10 +29,11 @@ app.post('/session', function (req, res) {
 // Serve static files.
 app.use('/', express.static(path.join(__dirname)));
 app.use('/lib', express.static(path.join(__dirname, 'lib')));
+app.use('/src', express.static(path.join(__dirname, 'src')));
 app.use('/lib/ext', express.static(path.join(__dirname, 'lib', 'ext')));
 
 // Seed data
-createSession('Stockholm', 5);
+createSession('Stockholm', 2);
 createSession('Hanover', 3);
 createSession('Bangalore', 6);
 
