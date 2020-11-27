@@ -44,6 +44,15 @@ function connect() {
     hostname = hostname + ':' + port;
     // eslint-disable-next-line no-undef
     mpc.connect(hostname, computation_id, options);
+    var url = backendUrl + '/session';
+    $.ajax({
+      url: url,
+      type: 'PUT',
+      data: sessions.filter(function (session) { return session.id === computation_id; })[0],
+      success: function (result) {
+        console.log(result);
+      }
+    });
   }
 }
 
@@ -86,8 +95,24 @@ function getRegisteredSessions() {
     $.each(sessions, function (index, value) {
       $('#sessions').append($('<option/>', {
         value: value.id,
-        text: value.description
+        text: value.name
       }));
+      $("#sessionsTable")
+        .append($('<tr>')
+          .append($('<td>')
+            .append($('<span>')
+              .text(value.name)
+            )
+          ).append($('<td>')
+            .append($('<span>')
+              .text(value.description)
+            )
+          ).append($('<td>')
+            .append($('<span>')
+              .text(value.participants)
+            )
+          )
+        );
     });
   });
 }
@@ -100,8 +125,8 @@ function createSession() {
     description: session_description,
     participants: party_count
   };
-  $.post(url, session, function(response, status) {
-    window.location.reload(true); 
+  $.post(url, session, function (response, status) {
+    window.location.reload(true);
   });
 }
 
