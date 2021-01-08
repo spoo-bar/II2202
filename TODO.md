@@ -1,3 +1,12 @@
+# Still TODO
+
+[] Spoon fixes here code and pushes (Spoon)
+[] Tie statistics into frontend
+## Benchmarks
+[] Script needs to run once plain js and once with mpc (Jasper)
+[] Show exponential increase with participants
+[] STRETCH: Include impact of network latency
+
 ## Generics:
 Display an overview page of sessions (Landing page) (1) (SPOON):
 
@@ -7,14 +16,14 @@ Display an overview page of sessions (Landing page) (1) (SPOON):
 
     [x] Include num of participants
 
-    [] Location
+    [] NOT NEEDED Location
         [] Detect location automatically (3); Needs soem thought
 
-[] Overview of pending/unfinsihed sessions (1)
+[] NOT NEEDED Overview of pending/unfinsihed sessions (1)
 
-[] Overview of finished sessions (1)
+[] NOT NEEDED Overview of finished sessions (1)
 
-[] Overview of my previous finished sessions (2)
+[] NOT NEEDED Overview of my previous finished sessions (2)
     - Has to be in local browser storage
 
 
@@ -25,6 +34,7 @@ Display an overview page of sessions (Landing page) (1) (SPOON):
 [x] move our code to src
 
 ## Statistics to display: [JASPER PLS]
+Some statis stuff is in js file already. Just need to display
 - top 10%
 - bot 10%
 - every 25% split
