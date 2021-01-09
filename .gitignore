@@ -188,3 +188,9 @@ logs/
 
 .threshold
 *-test.log
+
+# Ignore other test data
+demos/
+docs/
+tests/
+tutorials/

@@ -1,0 +1,67 @@
+<!-- Basic UI for running the demo in the browser -->
+
+<html>
+
+<head>
+  <title>Research Methodology</title>
+  <style>
+    .error {
+      color: #FF0000;
+    }
+
+    table, th,td {
+      border: 1px solid black;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="/dist/jiff-client.js"></script>
+
+  <!-- Contains UI Handlers and Input Checks -->
+  <script type="text/javascript" src="./client.js"></script>
+
+  <!-- Contains the MPC implementation -->
+  <script type="text/javascript" src="/mpc.js"></script>
+</head>
+
+<body>
+  <div id="session">
+    <h2>Create a session</h2>
+    <label for="session-name">Session Name </label>
+    <input id="session-name" value="New York"></input>
+    <br /><br />
+    <label for="session-description">Session Description </label>
+    <input id="session-description" value="Description"></input>
+    <br /><br />
+    <label for="count">Party Count</label>
+    <input id="count" pattern="[0-9]*" value="3">
+    <br /><br />
+    <button id="createSessionButton" onclick="createSession();">Create</button>
+    <br /><br />
+    <h2>Join a session</h2>
+    <table id="sessionsTable" style="width:40%;">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Total Slots</th>
+        <th>Pending slots</th>
+      </tr>
+    </table>
+    <label for="sessions">Choose a session to join:</label>
+    <select name="sessions" id="sessions">
+    </select>
+    <button id="connectButton" onclick="connect();">Connect</button>
+  </div>
+  <div id="inputView" style="display: none;">
+    <h3>Input data: </h3>
+    <label for="number">Enter your weight: </label> <br /><br />
+    <textarea id="inputText" rows="5" cols="35">1</textarea> &nbsp; <button onclick="submit();" disabled="disabled"
+      id="processButton">Start</button><br />
+    <div id="output"></div>
+  </div>
+</body>
+
+</html>
