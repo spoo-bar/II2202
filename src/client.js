@@ -119,9 +119,11 @@ function getRegisteredSessions() {
 
 function createSession() {
   var url = backendUrl + '/session';
+  var session_name = $('#session-name').val()
   var session_description = $('#session-description').val()
   var party_count = parseInt($('#count').val());
   var session = {
+    name: session_name,
     description: session_description,
     participants: party_count
   };

@@ -49,8 +49,8 @@ app.use('/src', express.static(path.join(__dirname, 'src')));
 app.use('/lib/ext', express.static(path.join(__dirname, 'lib', 'ext')));
 
 // Seed data
-createSession('KTH','For all KTH Royal Institute of Technology Students', 2);
-createSession('Hanover', 'For all the residents of Hanover', 3);
+createSession('KTH','For all KTH Royal Institute of Technology Students', 3);
+createSession('Hanover', 'For all the residents of Hanover', 2);
 
 
 http.listen(8080, function () {
