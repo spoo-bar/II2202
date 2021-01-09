@@ -67,6 +67,7 @@ function createSession(name, description, participants) {
     name: name,
     description: description,
     participants: participants,
+    totalParticipants: participants,
     completed: false
   };
   sessions.push(session);

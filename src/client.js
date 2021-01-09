@@ -11,7 +11,7 @@ function connect() {
   $('#connectButton').prop('disabled', true);
   var computation_id = $('#sessions option:selected').val();
   var selected_session = $('#sessions option:selected').text();
-  var party_count = parseInt(sessions.filter(function (session) { return session.id === computation_id; })[0].participants);
+  var party_count = parseInt(sessions.filter(function (session) { return session.id === computation_id; })[0].totalParticipants);
 
   if (isNaN(party_count)) {
     $('#output').append("<p class='error'>Party count must be a valid number!</p>");
@@ -109,9 +109,9 @@ function getRegisteredSessions() {
             )
           ).append($('<td>')
             .append($('<span>')
-              .text(value.participants)
+              .text(value.totalParticipants)
             )
-          )
+          ).append($('<td>').append($('<span>').text(value.participants)))
         );
     });
   });
