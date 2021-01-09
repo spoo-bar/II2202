@@ -6,6 +6,7 @@
 [x] Script needs to run benchmark with mpc (Jasper)
 [x] Show exponential increase with participants
 [] Plain text bubble sort with WebSockets as comparison
+    This should be in the same manner as the mpc setup. One server is running and multiple clients connect to it (server.js & client.js). Once the session is complete a bubble sort is executed and returned to the client. Communication should be done via WebSockets.
 [] STRETCH: Include impact of network latency
     We should use qdiscs; e. g. https://coderwall.com/p/zpckbg/simulate-a-slow-network-with-high-latency-on-your-localhost
     These are not working with WSL2
