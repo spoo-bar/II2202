@@ -3,9 +3,12 @@
 [x] Spoon fixes here code and pushes (Spoon)
 [] Tie statistics into frontend
 ## Benchmarks
-[] Script needs to run once plain js and once with mpc (Jasper)
-[] Show exponential increase with participants
+[x] Script needs to run benchmark with mpc (Jasper)
+[x] Show exponential increase with participants
+[] Plain text bubble sort with WebSockets as comparison
 [] STRETCH: Include impact of network latency
+    We should use qdiscs; e. g. https://coderwall.com/p/zpckbg/simulate-a-slow-network-with-high-latency-on-your-localhost
+    These are not working with WSL2
 
 ## Generics:
 Display an overview page of sessions (Landing page) (1) (SPOON):
