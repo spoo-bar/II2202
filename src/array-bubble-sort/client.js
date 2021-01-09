@@ -59,7 +59,6 @@ function connect() {
 // eslint-disable-next-line no-unused-vars
 function submit() {
   var arr = [];
-//  arr.push(Math.floor(Math.random() * 100));
   arr.push(parseInt(document.getElementById('inputText').value));
 
   for (var i = 0; i < arr.length; i++) {
@@ -80,6 +79,12 @@ function submit() {
 // eslint-disable-next-line no-unused-vars
 function handleResult(result) {
   $('#output').append('<p>Result is: ' + result + '</p>');
+  $('#output').append('<p>Average is: ' + average(result) + '</p>');
+  $('#output').append('<p>Median is: ' + median(result) + '</p>');
+  $('#output').append('<p>Mode is: ' + mode(result) + '</p>');
+  $('#output').append('<p>Own percentile rank is: ' + percentRank(result, parseInt(document.getElementById('inputText').value)) + '</p>');
+  $('#output').append('<p>Top 10% is: ' + percentile(result, 0.1) + '</p>');
+  $('#output').append('<p>Lowest 10% is: ' + percentile(result, 0.9) + '</p>');
   $('#button').attr('disabled', false);
 }
 
@@ -98,7 +103,7 @@ function getRegisteredSessions() {
         value: value.id,
         text: value.name
       }));
-      $("#sessionsTable")
+      $('#sessionsTable')
         .append($('<tr>')
           .append($('<td>')
             .append($('<span>')

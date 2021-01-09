@@ -1,7 +1,7 @@
 # Still TODO
 
 [x] Spoon fixes here code and pushes (Spoon)
-[] Tie statistics into frontend
+[x] Tie statistics into frontend
 ## Benchmarks
 [x] Script needs to run benchmark with mpc (Jasper)
 [x] Show exponential increase with participants
