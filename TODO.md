@@ -1,6 +1,6 @@
 # Still TODO
 
-[] Spoon fixes here code and pushes (Spoon)
+[x] Spoon fixes here code and pushes (Spoon)
 [] Tie statistics into frontend
 ## Benchmarks
 [] Script needs to run once plain js and once with mpc (Jasper)
@@ -16,14 +16,14 @@ Display an overview page of sessions (Landing page) (1) (SPOON):
 
     [x] Include num of participants
 
-    [] NOT NEEDED Location
+    [-] NOT NEEDED Location
         [] Detect location automatically (3); Needs soem thought
 
-[] NOT NEEDED Overview of pending/unfinsihed sessions (1)
+[-] NOT NEEDED Overview of pending/unfinsihed sessions (1)
 
-[] NOT NEEDED Overview of finished sessions (1)
+[-] NOT NEEDED Overview of finished sessions (1)
 
-[] NOT NEEDED Overview of my previous finished sessions (2)
+[-] NOT NEEDED Overview of my previous finished sessions (2)
     - Has to be in local browser storage
 
 
