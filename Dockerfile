@@ -12,6 +12,7 @@ COPY ["dist", "./dist"]
 COPY ["lib", "./lib"] 
 COPY ["server.js", "./"]
 COPY ["src", "./src"]
+COPY ["src-no-mpc", "./src-no-mpc"]
 
 USER node
 EXPOSE 8080
