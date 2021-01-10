@@ -11,7 +11,7 @@ DOCKER_CLIENT_PARTY_CMD_PATH=src/array-bubble-sort/party.js
 
 function startOneClient {
     RANDOM_NUMBER=$(( ( RANDOM % 1000 )  + 1 ))
-    docker exec "$DOCKER_CONTAINER_NAME" node "$DOCKER_CLIENT_PARTY_CMD_PATH" "[$RANDOM_NUMBER]" "$1" "$2" > /dev/null;
+    docker exec "$DOCKER_CONTAINER_NAME" node "$DOCKER_CLIENT_PARTY_CMD_PATH" "$RANDOM_NUMBER" "$1" "$2" > /dev/null;
 }
 
 function startNumberOfClients {
