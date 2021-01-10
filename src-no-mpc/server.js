@@ -23,31 +23,32 @@ wsServer.on('request', function(request) {
   connection.on('message', function(message) {
     if (message.type === 'utf8') {
       // process WebSocket message
-      let data = JSON.parse(message);
+      console.log(message)
+      let data = JSON.parse(message.utf8Data);
+      let client = {
+        data: data,
+        connection: connection
+      };
+      connections.push(client);
       if(connections.length == data.party_count) {
         sendSortedData();
-      }
-      else {        
-        let client = {
-          data: data,
-          connection: connection
-        };
-        connections.push(client);
       }
     }
   });
 
   connection.on('close', function(connection) {
     // close user connection
+    connections = [];
   });
 });
 
 function sendSortedData() {
   let data_array = connections.map(c => c.data);
   let inputs_array = data_array.map(d => d.input);
+  console.log("Sorted array = " + JSON.stringify(inputs_array));
   // todo sort
-  connections.forEach(connection => {
+  connections.forEach(client => {
     let jsonData = JSON.stringify(inputs_array);
-    connection.sendUTF(jsonData);
+    client.connection.sendUTF(jsonData);
   });
 }
