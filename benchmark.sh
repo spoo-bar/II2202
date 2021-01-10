@@ -53,9 +53,11 @@ echo "Starting benchmark. You should not have the server running and be in the r
 echo "Building docker container.."
 docker build -q -t "$DOCKER_TAG" . > /dev/null
 
-echo "Starting Node in docker with mpc. Will be killed on exit"
+echo "Starting Node in docker without mpc. Will be killed on exit"
 docker run --cap-add=NET_ADMIN -d --rm --name="$DOCKER_CONTAINER_NAME" "$DOCKER_TAG" "node" "src-no-mpc/server.js" > /dev/null
+DOCKER_CLIENT_PARTY_CMD_PATH="src-no-mpc/client.js"
 trap "docker rm -f $DOCKER_CONTAINER_NAME > /dev/null; exit;" EXIT SIGINT
+
 echo "Waiting 15 sec for container to start"
 sleep 15
 
@@ -65,11 +67,11 @@ done
 
 
 
-docker rm -f $DOCKER_CONTAINER_NAME > /dev/null
-echo "Starting Node in docker without mpc. Will be killed on exit"
+docker rm -f "$DOCKER_CONTAINER_NAME" > /dev/null
+echo "Starting Node in docker with mpc. Will be killed on exit"
 docker run --cap-add=NET_ADMIN -d --rm --name="$DOCKER_CONTAINER_NAME" "$DOCKER_TAG" > /dev/null
 trap "docker rm -f $DOCKER_CONTAINER_NAME > /dev/null; exit;" EXIT SIGINT
-DOCKER_CLIENT_PARTY_CMD_PATH="src-no-mpc/client.js"
+DOCKER_CLIENT_PARTY_CMD_PATH="src/array-bubble-sort/party.js"
 echo "Waiting 15 sec for container to start"
 sleep 15
 
