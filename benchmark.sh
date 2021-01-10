@@ -1,19 +1,22 @@
 #/bin/bash
 
-MAX_NUM_OF_CLIENTS=15
+MAX_NUM_OF_CLIENTS=10
+DELAYS_MS=(0 5 10 15 20)
 
 TIMEFORMAT=%R
+DOCKER_TAG=mpcbenchmark
+DOCKER_CONTAINER_NAME="$DOCKER_TAG"
 
 function startOneClient {
     RANDOM_NUMBER=$(( ( RANDOM % 1000 )  + 1 ))
-    node src/array-bubble-sort/party.js "[$RANDOM_NUMBER]" "$1" "$2" > /dev/null;
+    docker exec "$DOCKER_CONTAINER_NAME" node src/array-bubble-sort/party.js "[$RANDOM_NUMBER]" "$1" "$2" > /dev/null;
 }
 
 function startNumberOfClients {
     # Generates 32 random chars
     COMPUTATION_ID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
-    for i in $(seq 1 "$1"); do 
+    for i in $(seq 1 "$1"); do
         if [[ "$i" -eq "$1" ]]
         then
             result=$( { time startOneClient "$1" "$COMPUTATION_ID"; } 2>&1 )
@@ -24,24 +27,38 @@ function startNumberOfClients {
     done
 }
 
+function runWithDelay {
+    echo "Benchmark will start. Results are printed to stdout"
+    echo "$1ms delay. "
+    echo ""
+    echo "number of clients;time in seconds"
+
+    docker exec --user root mpcbenchmark tc qdisc add dev lo root netem delay "$1ms"
+
+    for i in $(seq 1 "$MAX_NUM_OF_CLIENTS"); do
+        executionTime=`startNumberOfClients "$i"`
+
+        outline="$i;$executionTime"
+        outline=${outline//$'\n'/} # Remove all newlines in the output.
+        echo "$outline"
+    done
+
+    docker exec --user root mpcbenchmark tc qdisc del dev lo root
+    echo ""
+    echo ""
+}
+
 echo "Starting benchmark. You should not have the server running and be in the root folder!"
+echo "Building docker container.."
+docker build -q -t "$DOCKER_TAG" . > /dev/null
 
-echo "Starting Node. Will be killed on exit"
-node index.js > /dev/null &
-NODE_PID=$!
-trap "kill $NODE_PID; exit;" EXIT SIGINT
+echo "Starting Node in node. Will be killed on exit"
+docker run --cap-add=NET_ADMIN -d --rm --name="$DOCKER_CONTAINER_NAME" "$DOCKER_TAG" > /dev/null
+trap "docker rm -f $DOCKER_CONTAINER_NAME > /dev/null; exit;" EXIT SIGINT
 
-echo "Waiting 15 sec"
+echo "Waiting 15 sec for container to start"
 sleep 15
 
-echo "Benchmark will start. Results are printed to stdout"
-echo ""
-echo ""
-echo "number of clients;time in seconds"
-for i in $(seq 1 "$MAX_NUM_OF_CLIENTS"); do 
-    executionTime=`startNumberOfClients "$i"`
-
-    outline="$i;$executionTime"
-    outline=${outline//$'\n'/} # Remove all newlines in the output.
-    echo "$outline"
+for delay in "${DELAYS_MS[@]}"; do
+    runWithDelay "$delay"
 done
