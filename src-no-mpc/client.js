@@ -18,7 +18,7 @@ client.on('connect', function(connection) {
         console.log("Connection Error: " + error.toString());
     });
     connection.on('close', function() {
-        console.log('non-mpc-benchmark Connection Closed');
+        console.log('Connection Closed');
     });
     connection.on('message', function(message) {
         if (message.type === 'utf8') {

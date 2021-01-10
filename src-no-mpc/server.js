@@ -45,10 +45,28 @@ wsServer.on('request', function(request) {
 function sendSortedData() {
   let data_array = connections.map(c => c.data);
   let inputs_array = data_array.map(d => d.input);
-  console.log("Sorted array = " + JSON.stringify(inputs_array));
-  // todo sort
+  
+  let sortedArray = bubbleSort(inputs_array);
+
   connections.forEach(client => {
-    let jsonData = JSON.stringify(inputs_array);
+    let jsonData = JSON.stringify(sortedArray);
     client.connection.sendUTF(jsonData);
   });
+}
+
+function bubbleSort(inputArr) {
+  let len = inputArr.length;
+    let swapped;
+    do {
+        swapped = false;
+        for (let i = 0; i < len; i++) {
+            if (inputArr[i] > inputArr[i + 1]) {
+                let tmp = inputArr[i];
+                inputArr[i] = inputArr[i + 1];
+                inputArr[i + 1] = tmp;
+                swapped = true;
+            }
+        }
+    } while (swapped);
+    return inputArr;
 }
