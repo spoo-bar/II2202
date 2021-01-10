@@ -4,6 +4,10 @@
     ```shell
     node server.js
     ```
+    Alternative:
+    ```shell
+    docker run --rm -p 8081:8080 $(docker build -q .)
+    ```
 
 2. Open browser based parties by going to *http://localhost:8080/index.html* in the browser
 
