@@ -58,16 +58,13 @@
     //   }
     // }
 
-    // Concatenate input arrays
-    var full_array = [];
-    for (var p = 1; p <= jiff_instance.party_count; p++) {
-      full_array = full_array.concat(shares[p]);
+    var shares = jiff_instance.share(input);
+    var sum = shares[1];
+    for (var i = 2; i <= jiff_instance.party_count; i++) {
+      sum = sum.sadd(shares[i]);
     }
 
-    // Sort new array
-    var sorted = bubblesort(full_array);
-
-    // Open the array
-    return jiff_instance.open_array(sorted);
+    // Return a promise to the final output(s)
+    return jiff_instance.open(sum);
   };
 }((typeof exports === 'undefined' ? this.mpc = {} : exports), typeof exports !== 'undefined'));
