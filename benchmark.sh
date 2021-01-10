@@ -2,6 +2,7 @@
 
 MAX_NUM_OF_CLIENTS=10
 DELAYS_MS=(0 5 10 15 20)
+CSV_OUTPUT_FILE="benchmark-$(date +"%N").csv"
 
 TIMEFORMAT=%R
 DOCKER_TAG=mpcbenchmark
@@ -32,22 +33,25 @@ function runWithDelay {
     echo "Benchmark will start. Results are printed to stdout"
     echo "$1ms delay. "
     echo ""
-    echo "number of clients;time in seconds"
+    
 
     docker exec --user root mpcbenchmark tc qdisc add dev lo root netem delay "$1ms"
 
     for i in $(seq 1 "$MAX_NUM_OF_CLIENTS"); do
         executionTime=`startNumberOfClients "$i"`
 
-        outline="$i;$executionTime"
+        outline="$2;$i;$executionTime"
         outline=${outline//$'\n'/} # Remove all newlines in the output.
-        echo "$outline"
+        echo "$outline" | tee -a "$CSV_OUTPUT_FILE"
     done
 
     docker exec --user root mpcbenchmark tc qdisc del dev lo root
     echo ""
     echo ""
 }
+
+echo "type;number of clients;time in seconds" | tee "$CSV_OUTPUT_FILE" > /dev/null
+
 
 echo "Starting benchmark. You should not have the server running and be in the root folder!"
 echo "Building docker container.."
@@ -62,7 +66,7 @@ echo "Waiting 15 sec for container to start"
 sleep 15
 
 for delay in "${DELAYS_MS[@]}"; do
-    runWithDelay "$delay"
+    runWithDelay "$delay" "no-mpc_${delay}-ms"
 done
 
 
@@ -76,5 +80,5 @@ echo "Waiting 15 sec for container to start"
 sleep 15
 
 for delay in "${DELAYS_MS[@]}"; do
-    runWithDelay "$delay"
+    runWithDelay "$delay" "mpc_${delay}-ms"
 done
