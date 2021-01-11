@@ -46,7 +46,7 @@ function sendSortedData() {
   let data_array = connections.map(c => c.data);
   let inputs_array = data_array.map(d => d.input);
   
-  let sortedArray = bubbleSort(inputs_array);
+  let sortedArray = average(inputs_array);
 
   connections.forEach(client => {
     let jsonData = JSON.stringify(sortedArray);
@@ -54,19 +54,7 @@ function sendSortedData() {
   });
 }
 
-function bubbleSort(inputArr) {
-  let len = inputArr.length;
-    let swapped;
-    do {
-        swapped = false;
-        for (let i = 0; i < len; i++) {
-            if (inputArr[i] > inputArr[i + 1]) {
-                let tmp = inputArr[i];
-                inputArr[i] = inputArr[i + 1];
-                inputArr[i + 1] = tmp;
-                swapped = true;
-            }
-        }
-    } while (swapped);
-    return inputArr;
+function average(inputArr) {
+  var sum = inputArr.reduce((a, b) => a + b, 0);
+  return (sum / inputArr.length)
 }

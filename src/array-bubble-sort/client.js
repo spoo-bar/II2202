@@ -72,19 +72,13 @@ function submit() {
   $('#output').append('<p>Starting...</p>');
 
   // eslint-disable-next-line no-undef
-  var promise = mpc.compute(arr);
+  var promise = mpc.compute(arr[0]);
   promise.then(handleResult);
 }
 
 // eslint-disable-next-line no-unused-vars
 function handleResult(result) {
-  $('#output').append('<p>Result is: ' + result + '</p>');
-  $('#output').append('<p>Average is: ' + average(result) + '</p>');
-  $('#output').append('<p>Median is: ' + median(result) + '</p>');
-  $('#output').append('<p>Mode is: ' + mode(result) + '</p>');
-  $('#output').append('<p>Own percentile rank is: ' + percentRank(result, parseInt(document.getElementById('inputText').value)) + '</p>');
-  $('#output').append('<p>Top 10% is: ' + percentile(result, 0.1) + '</p>');
-  $('#output').append('<p>Lowest 10% is: ' + percentile(result, 0.9) + '</p>');
+  $('#output').append('<p>Average is: ' + result + '</p>');
   $('#button').attr('disabled', false);
 }
 

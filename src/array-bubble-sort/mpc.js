@@ -47,24 +47,14 @@
       jiff_instance = saved_instance;
     }
 
-    // Share the arrays
-    var shares = jiff_instance.share_array(input, input.length);
-
-    // Sum all shared input arrays element wise
-    // var array = shares[1];
-    // for (var p = 2; p <= jiff_instance.party_count; p++) {
-    //   for (var i = 0; i < array.length; i++) {
-    //     array[i] = array[i].sadd(shares[p][i]);
-    //   }
-    // }
-
     var shares = jiff_instance.share(input);
     var sum = shares[1];
     for (var i = 2; i <= jiff_instance.party_count; i++) {
       sum = sum.sadd(shares[i]);
     }
+    var average = sum.div(jiff_instance.party_count)
 
     // Return a promise to the final output(s)
-    return jiff_instance.open(sum);
+    return jiff_instance.open(average);
   };
 }((typeof exports === 'undefined' ? this.mpc = {} : exports), typeof exports !== 'undefined'));
