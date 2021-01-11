@@ -18,7 +18,6 @@
 
     // eslint-disable-next-line no-undef
     saved_instance = new JIFFClient(hostname, computation_id, opt);
-    exports.saved_instance = saved_instance;
     // if you need any extensions, put them here
 
     return saved_instance;
@@ -28,18 +27,41 @@
    * The MPC computation
    */
 
-  function bubblesort(arr) {
-    for (var i = 0; i < arr.length; i++) {
-      for (var j = 0; j < (arr.length - i - 1); j++) {
-        var a = arr[j];
-        var b = arr[j+1];
-        var cmp = a.slt(b);
-        arr[j] = cmp.if_else(a, b);
-        arr[j+1] = cmp.if_else(b, a);
+  function oddEvenSort(a, lo, n) {
+    if (n > 1) {
+      var m = Math.floor(n / 2);
+      oddEvenSort(a, lo, m);
+      oddEvenSort(a, lo + m, m);
+      oddEvenMerge(a, lo, n, 1);
+    }
+  }
+
+  // lo: lower bound of indices, n: number of elements, r: step
+  function oddEvenMerge(a, lo, n, r) {
+    var m = r * 2;
+    if (m < n) {
+      oddEvenMerge(a, lo, n, m);
+      oddEvenMerge(a, lo + r, n, m);
+
+      for (var i = (lo + r); (i + r) < (lo + n); i += m) {
+        compareExchange(a, i, i + r);
       }
+    } else {
+      compareExchange(a, lo, lo + r);
+    }
+  }
+
+  function compareExchange(a, i, j) {
+    if (j >= a.length || i >= a.length) {
+      return;
     }
 
-    return arr;
+    var x = a[i];
+    var y = a[j];
+
+    var cmp = x.lt(y);
+    a[i] = cmp.if_else(x, y);
+    a[j] = cmp.if_else(y, x);
   }
 
   exports.compute = function (input, jiff_instance) {
@@ -50,14 +72,6 @@
     // Share the arrays
     var shares = jiff_instance.share_array(input, input.length);
 
-    // Sum all shared input arrays element wise
-    // var array = shares[1];
-    // for (var p = 2; p <= jiff_instance.party_count; p++) {
-    //   for (var i = 0; i < array.length; i++) {
-    //     array[i] = array[i].sadd(shares[p][i]);
-    //   }
-    // }
-
     // Concatenate input arrays
     var full_array = [];
     for (var p = 1; p <= jiff_instance.party_count; p++) {
@@ -65,9 +79,9 @@
     }
 
     // Sort new array
-    var sorted = bubblesort(full_array);
+    oddEvenSort(full_array, 0, jiff_instance.party_count);
 
     // Open the array
-    return jiff_instance.open_array(sorted);
+    return jiff_instance.open_array(full_array);
   };
 }((typeof exports === 'undefined' ? this.mpc = {} : exports), typeof exports !== 'undefined'));
