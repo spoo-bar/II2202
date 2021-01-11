@@ -1,7 +1,7 @@
 #/bin/bash
 
-MAX_NUM_OF_CLIENTS=10
-DELAYS_MS=(0 5 10 15 20)
+MAX_NUM_OF_CLIENTS=15
+DELAYS_MS=(0 5 10 15 20 25 30)
 CSV_OUTPUT_FILE="benchmark-$(date +"%N").csv"
 
 TIMEFORMAT=%R
@@ -58,7 +58,7 @@ echo "Building docker container.."
 docker build -q -t "$DOCKER_TAG" . > /dev/null
 
 echo "Starting Node in docker without mpc. Will be killed on exit"
-docker run --cap-add=NET_ADMIN -d --rm --name="$DOCKER_CONTAINER_NAME" "$DOCKER_TAG" "node" "src-no-mpc/server.js" > /dev/null
+docker run --cap-add=NET_ADMIN --log-driver=none -d --rm --name="$DOCKER_CONTAINER_NAME" "$DOCKER_TAG" "node" "src-no-mpc/server.js" > /dev/null
 DOCKER_CLIENT_PARTY_CMD_PATH="src-no-mpc/client.js"
 trap "docker rm -f $DOCKER_CONTAINER_NAME > /dev/null; exit;" EXIT SIGINT
 
@@ -73,7 +73,7 @@ done
 
 docker rm -f "$DOCKER_CONTAINER_NAME" > /dev/null
 echo "Starting Node in docker with mpc. Will be killed on exit"
-docker run --cap-add=NET_ADMIN -d --rm --name="$DOCKER_CONTAINER_NAME" "$DOCKER_TAG" > /dev/null
+docker run --cap-add=NET_ADMIN --log-driver=none -d --rm --name="$DOCKER_CONTAINER_NAME" "$DOCKER_TAG" > /dev/null
 trap "docker rm -f $DOCKER_CONTAINER_NAME > /dev/null; exit;" EXIT SIGINT
 DOCKER_CLIENT_PARTY_CMD_PATH="src/array-bubble-sort/party.js"
 echo "Waiting 15 sec for container to start"
